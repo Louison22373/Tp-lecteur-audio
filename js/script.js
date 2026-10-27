@@ -9,6 +9,7 @@ const previousButton = document.querySelector('#previous-button');
 const nextButton = document.querySelector('#next-button');
 const randomButton = document.querySelector('#random-button');
 const repeatButton = document.querySelector('#repeat-button');
+const fadeButton = document.querySelector('#fade-button');
 
 const commentsList = document.querySelector('#comments-list');
 const commentForm = document.querySelector('#comment-form');
@@ -20,7 +21,23 @@ const songs = document.querySelectorAll('.song');
 let currentSongIndex = 0;
 let randomMode = false;
 let repeatMode = false;
+let fadeMode = false;
 
+fadeButton.addEventListener('click', () => {
+
+    fadeMode = !fadeMode;
+
+    if (fadeMode) {
+
+        fadeButton.textContent = '🎚️ ON';
+
+    } else {
+
+        fadeButton.textContent = '🎚️';
+
+    }
+
+});
 
 function playSong(index) {
 
