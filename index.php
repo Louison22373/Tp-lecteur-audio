@@ -137,7 +137,18 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
         </section>
+        
+    <section class="comments">
 
+    <h2>Commentaires</h2>
+
+    <div id="comments-list">
+
+        <p>Sélectionnez une chanson pour voir les commentaires.</p>
+
+    </div>
+
+</section>
     </main>
 
     <script src="js/script.js"></script>

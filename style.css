@@ -58,3 +58,17 @@ body {
 .song-details span {
     font-size: 14px;
 }
+
+.song {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.song:hover {
+    transform: translateY(-3px);
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
