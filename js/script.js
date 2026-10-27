@@ -197,3 +197,35 @@ audioPlayer.addEventListener('ended', () => {
     playSong(nextIndex);
 
 });
+
+commentForm.addEventListener('submit', async (event) => {
+
+    event.preventDefault();
+
+    const username = commentUsername.value;
+    const content = commentContent.value;
+
+    const currentSong = songs[currentSongIndex];
+
+    const songId = currentSong.dataset.id;
+
+    const formData = new FormData();
+
+    formData.append('username', username);
+    formData.append('content', content);
+    formData.append('song_id', songId);
+
+    const response = await fetch('add-comment.php', {
+        method: 'POST',
+        body: formData
+    });
+
+    if (response.ok) {
+
+        commentContent.value = '';
+
+        loadComments(songId);
+
+    }
+
+});
