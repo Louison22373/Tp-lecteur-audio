@@ -29,33 +29,103 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
 
     <title>Lecteur Audio</title>
 
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <h1>🎵 Lecteur Audio</h1>
+    <main class="app">
 
-    <h2>Mes chansons</h2>
+        <section class="player">
 
-    <?php foreach ($songs as $song): ?>
+            <div class="cover">
 
-        <div>
+                <img
+                    id="player-cover"
+                    src="images/default.jpg"
+                    alt="Pochette de l'album"
+                >
 
-            <h3><?= htmlspecialchars($song['title']) ?></h3>
+            </div>
 
-            <p>
-                Artiste : <?= htmlspecialchars($song['artist']) ?>
-            </p>
+            <div class="song-info">
 
-            <p>
-                Album : <?= htmlspecialchars($song['album_name']) ?>
-            </p>
+                <h1 id="player-title">
+                    Aucune chanson sélectionnée
+                </h1>
 
-        </div>
+                <h2 id="player-artist">
+                    Aucun artiste
+                </h2>
 
-        <hr>
+                <p id="player-album">
+                    Aucun album
+                </p>
 
-    <?php endforeach; ?>
+                <audio id="audio-player" controls>
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+
+            </div>
+
+        </section>
+
+
+        <section class="songs">
+
+            <h2>Mes chansons</h2>
+
+            <div class="song-list">
+
+                <?php foreach ($songs as $song): ?>
+
+                    <article
+                        class="song"
+                        data-id="<?= $song['id'] ?>"
+                        data-title="<?= htmlspecialchars($song['title']) ?>"
+                        data-artist="<?= htmlspecialchars($song['artist']) ?>"
+                        data-album="<?= htmlspecialchars($song['album_name']) ?>"
+                        data-file="<?= htmlspecialchars($song['file']) ?>"
+                        data-cover="<?= htmlspecialchars($song['cover']) ?>"
+                    >
+
+                        <div class="song-cover">
+
+                            <img
+                                src="images/<?= htmlspecialchars($song['cover']) ?>"
+                                alt="Pochette de <?= htmlspecialchars($song['album_name']) ?>"
+                            >
+
+                        </div>
+
+                        <div class="song-details">
+
+                            <h3>
+                                <?= htmlspecialchars($song['title']) ?>
+                            </h3>
+
+                            <p>
+                                <?= htmlspecialchars($song['artist']) ?>
+                            </p>
+
+                            <span>
+                                <?= htmlspecialchars($song['album_name']) ?>
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
 
 </body>
 

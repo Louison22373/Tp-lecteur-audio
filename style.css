@@ -1,0 +1,60 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.app {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.cover img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.song {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.song-cover img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.song-details h3 {
+    margin: 0 0 5px;
+}
+
+.song-details p {
+    margin: 0 0 5px;
+}
+
+.song-details span {
+    font-size: 14px;
+}
