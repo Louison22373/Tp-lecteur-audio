@@ -72,7 +72,7 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
 
     <button id="previous-button">←</button>
 
-    <button id="random-button">↬</button>
+    <button id="random-button">⮔</button>
 
     <button id="next-button">→</button>
 
@@ -137,7 +137,7 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
         </section>
-        
+
     <section class="comments">
 
     <h2>Commentaires</h2>
@@ -147,6 +147,27 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
         <p>Sélectionnez une chanson pour voir les commentaires.</p>
 
     </div>
+
+    <form id="comment-form">
+
+        <input
+            type="text"
+            id="comment-username"
+            placeholder="Votre pseudo"
+            required
+        >
+
+        <textarea
+            id="comment-content"
+            placeholder="Écrivez votre commentaire..."
+            required
+        ></textarea>
+
+        <button type="submit">
+            Publier
+        </button>
+
+    </form>
 
 </section>
     </main>

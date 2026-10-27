@@ -10,8 +10,10 @@ const nextButton = document.querySelector('#next-button');
 const randomButton = document.querySelector('#random-button');
 const repeatButton = document.querySelector('#repeat-button');
 
-console.log('Bouton suivant :', nextButton);
-console.log('Bouton précédent :', previousButton);
+const commentsList = document.querySelector('#comments-list');
+const commentForm = document.querySelector('#comment-form');
+const commentUsername = document.querySelector('#comment-username');
+const commentContent = document.querySelector('#comment-content');
 
 const songs = document.querySelectorAll('.song');
 
@@ -19,21 +21,6 @@ let currentSongIndex = 0;
 let randomMode = false;
 let repeatMode = false;
 
-randomButton.addEventListener('click', () => {
-
-    randomMode = !randomMode;
-
-    if (randomMode) {
-
-        randomButton.textContent = '↬ ON';
-
-    } else {
-
-        randomButton.textContent = '↬';
-
-    }
-
-});
 
 function playSong(index) {
 
@@ -43,17 +30,61 @@ function playSong(index) {
 
     const song = songs[index];
 
-    playerTitle.textContent = song.dataset.title;
-    playerArtist.textContent = song.dataset.artist;
-    playerAlbum.textContent = song.dataset.album;
+    const id = song.dataset.id;
+    const title = song.dataset.title;
+    const artist = song.dataset.artist;
+    const album = song.dataset.album;
+    const file = song.dataset.file;
+    const cover = song.dataset.cover;
 
-    playerCover.src = `images/${song.dataset.cover}`;
+    playerTitle.textContent = title;
+    playerArtist.textContent = artist;
+    playerAlbum.textContent = album;
 
-    audioPlayer.src = `audio/${song.dataset.file}`;
+    playerCover.src = `images/${cover}`;
+
+    audioPlayer.src = `audio/${file}`;
 
     currentSongIndex = index;
 
+    audioPlayer.load();
     audioPlayer.play();
+
+    loadComments(id);
+}
+
+
+async function loadComments(songId) {
+
+    const response = await fetch(`get-comments.php?song_id=${songId}`);
+
+    const comments = await response.json();
+
+    commentsList.innerHTML = '';
+
+    if (comments.length === 0) {
+
+        commentsList.innerHTML = '<p>Aucun commentaire pour cette chanson.</p>';
+
+        return;
+    }
+
+    comments.forEach(comment => {
+
+        const article = document.createElement('article');
+
+        article.classList.add('comment');
+
+        article.innerHTML = `
+            <strong>${comment.username}</strong>
+            <p>${comment.content}</p>
+            <small>${comment.created_at}</small>
+        `;
+
+        commentsList.appendChild(article);
+
+    });
+
 }
 
 
@@ -64,6 +95,40 @@ songs.forEach((song, index) => {
         playSong(index);
 
     });
+
+});
+
+
+randomButton.addEventListener('click', () => {
+
+    randomMode = !randomMode;
+
+    if (randomMode) {
+
+        randomButton.textContent = ' ⮔ON';
+
+    } else {
+
+        randomButton.textContent = '⮔';
+
+    }
+
+});
+
+
+repeatButton.addEventListener('click', () => {
+
+    repeatMode = !repeatMode;
+
+    if (repeatMode) {
+
+        repeatButton.textContent = '⮔ ON';
+
+    } else {
+
+        repeatButton.textContent = '⮔';
+
+    }
 
 });
 
@@ -104,23 +169,6 @@ previousButton.addEventListener('click', () => {
 });
 
 
-repeatButton.addEventListener('click', () => {
-
-    repeatMode = !repeatMode;
-
-    if (repeatMode) {
-
-        repeatButton.textContent = '⟳ ON';
-
-    } else {
-
-        repeatButton.textContent = '⟳';
-
-    }
-
-});
-
-
 audioPlayer.addEventListener('ended', () => {
 
     if (repeatMode) {
@@ -128,7 +176,6 @@ audioPlayer.addEventListener('ended', () => {
         playSong(currentSongIndex);
 
         return;
-
     }
 
     let nextIndex;
