@@ -7,13 +7,34 @@ const playerAlbum = document.querySelector('#player-album');
 
 const previousButton = document.querySelector('#previous-button');
 const nextButton = document.querySelector('#next-button');
+const randomButton = document.querySelector('#random-button');
+const repeatButton = document.querySelector('#repeat-button');
+
+console.log('Bouton suivant :', nextButton);
+console.log('Bouton précédent :', previousButton);
 
 const songs = document.querySelectorAll('.song');
 
 let currentSongIndex = 0;
+let randomMode = false;
+let repeatMode = false;
 
+randomButton.addEventListener('click', () => {
 
-// Fonction pour jouer une chanson
+    randomMode = !randomMode;
+
+    if (randomMode) {
+
+        randomButton.textContent = '↬ ON';
+
+    } else {
+
+        randomButton.textContent = '↬';
+
+    }
+
+});
+
 function playSong(index) {
 
     if (index < 0 || index >= songs.length) {
@@ -36,7 +57,6 @@ function playSong(index) {
 }
 
 
-// Cliquer sur une chanson
 songs.forEach((song, index) => {
 
     song.addEventListener('click', () => {
@@ -48,13 +68,22 @@ songs.forEach((song, index) => {
 });
 
 
-// Bouton suivant
 nextButton.addEventListener('click', () => {
 
-    let nextIndex = currentSongIndex + 1;
+    let nextIndex;
 
-    if (nextIndex >= songs.length) {
-        nextIndex = 0;
+    if (randomMode) {
+
+        nextIndex = Math.floor(Math.random() * songs.length);
+
+    } else {
+
+        nextIndex = currentSongIndex + 1;
+
+        if (nextIndex >= songs.length) {
+            nextIndex = 0;
+        }
+
     }
 
     playSong(nextIndex);
@@ -62,7 +91,6 @@ nextButton.addEventListener('click', () => {
 });
 
 
-// Bouton précédent
 previousButton.addEventListener('click', () => {
 
     let previousIndex = currentSongIndex - 1;
@@ -76,13 +104,47 @@ previousButton.addEventListener('click', () => {
 });
 
 
-// Passer automatiquement à la chanson suivante
+repeatButton.addEventListener('click', () => {
+
+    repeatMode = !repeatMode;
+
+    if (repeatMode) {
+
+        repeatButton.textContent = '⟳ ON';
+
+    } else {
+
+        repeatButton.textContent = '⟳';
+
+    }
+
+});
+
+
 audioPlayer.addEventListener('ended', () => {
 
-    let nextIndex = currentSongIndex + 1;
+    if (repeatMode) {
 
-    if (nextIndex >= songs.length) {
-        nextIndex = 0;
+        playSong(currentSongIndex);
+
+        return;
+
+    }
+
+    let nextIndex;
+
+    if (randomMode) {
+
+        nextIndex = Math.floor(Math.random() * songs.length);
+
+    } else {
+
+        nextIndex = currentSongIndex + 1;
+
+        if (nextIndex >= songs.length) {
+            nextIndex = 0;
+        }
+
     }
 
     playSong(nextIndex);
