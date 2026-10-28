@@ -120,9 +120,9 @@ randomButton.addEventListener('click', () => {
     randomMode = !randomMode;
 
     if (randomMode) {
-        randomButton.textContent = '🔀 ON';
+        randomButton.textContent = '⮔ ON';
     } else {
-        randomButton.textContent = '🔀';
+        randomButton.textContent = '⮔';
     }
 
 });
@@ -132,9 +132,9 @@ repeatButton.addEventListener('click', () => {
     repeatMode = !repeatMode;
 
     if (repeatMode) {
-        repeatButton.textContent = '🔁 ON';
+        repeatButton.textContent = '⟳ ON';
     } else {
-        repeatButton.textContent = '🔁';
+        repeatButton.textContent = '⟳';
     }
 
 });
@@ -144,9 +144,9 @@ fadeButton.addEventListener('click', () => {
     fadeMode = !fadeMode;
 
     if (fadeMode) {
-        fadeButton.textContent = '🎚️ ON';
+        fadeButton.textContent = '↪ ON';
     } else {
-        fadeButton.textContent = '🎚️';
+        fadeButton.textContent = '↪';
 
         isFading = true;
         audioPlayer.volume = userVolume;

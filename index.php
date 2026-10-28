@@ -76,7 +76,7 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
 
     <button id="next-button">→</button>
 
-    <button id="fade-button">🎚️</button>
+    <button id="fade-button">↪</button>
 
     <button id="repeat-button">⟳</button>
 
