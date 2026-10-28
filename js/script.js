@@ -12,6 +12,7 @@ const repeatButton = document.querySelector('#repeat-button');
 const fadeButton = document.querySelector('#fade-button');
 
 const commentsList = document.querySelector('#comments-list');
+
 const commentForm = document.querySelector('#comment-form');
 const commentUsername = document.querySelector('#comment-username');
 const commentContent = document.querySelector('#comment-content');
@@ -22,19 +23,13 @@ let currentSongIndex = 0;
 let randomMode = false;
 let repeatMode = false;
 let fadeMode = false;
+let userVolume = 1;
+let isFading = false;
 
-fadeButton.addEventListener('click', () => {
+audioPlayer.addEventListener('volumechange', () => {
 
-    fadeMode = !fadeMode;
-
-    if (fadeMode) {
-
-        fadeButton.textContent = '🎚️ ON';
-
-    } else {
-
-        fadeButton.textContent = '🎚️';
-
+    if (!isFading) {
+        userVolume = audioPlayer.volume;
     }
 
 });
@@ -60,16 +55,24 @@ function playSong(index) {
 
     playerCover.src = `images/${cover}`;
 
-    audioPlayer.src = `audio/${file}`;
-
     currentSongIndex = index;
 
+    audioPlayer.src = `audio/${file}`;
+
+    if (fadeMode) {
+        isFading = true;
+        audioPlayer.volume = 0;
+        isFading = false;
+    } else {
+        audioPlayer.volume = userVolume;
+    }
+
     audioPlayer.load();
+
     audioPlayer.play();
 
     loadComments(id);
 }
-
 
 async function loadComments(songId) {
 
@@ -80,9 +83,7 @@ async function loadComments(songId) {
     commentsList.innerHTML = '';
 
     if (comments.length === 0) {
-
         commentsList.innerHTML = '<p>Aucun commentaire pour cette chanson.</p>';
-
         return;
     }
 
@@ -104,7 +105,6 @@ async function loadComments(songId) {
 
 }
 
-
 songs.forEach((song, index) => {
 
     song.addEventListener('click', () => {
@@ -115,40 +115,85 @@ songs.forEach((song, index) => {
 
 });
 
-
 randomButton.addEventListener('click', () => {
 
     randomMode = !randomMode;
 
     if (randomMode) {
-
-        randomButton.textContent = ' ⮔ON';
-
+        randomButton.textContent = '🔀 ON';
     } else {
-
-        randomButton.textContent = '⮔';
-
+        randomButton.textContent = '🔀';
     }
 
 });
-
 
 repeatButton.addEventListener('click', () => {
 
     repeatMode = !repeatMode;
 
     if (repeatMode) {
-
-        repeatButton.textContent = '⮔ ON';
-
+        repeatButton.textContent = '🔁 ON';
     } else {
-
-        repeatButton.textContent = '⮔';
-
+        repeatButton.textContent = '🔁';
     }
 
 });
 
+fadeButton.addEventListener('click', () => {
+
+    fadeMode = !fadeMode;
+
+    if (fadeMode) {
+        fadeButton.textContent = '🎚️ ON';
+    } else {
+        fadeButton.textContent = '🎚️';
+
+        isFading = true;
+        audioPlayer.volume = userVolume;
+        isFading = false;
+    }
+
+});
+
+audioPlayer.addEventListener('timeupdate', () => {
+
+    if (!fadeMode) {
+        return;
+    }
+
+    const currentTime = audioPlayer.currentTime;
+    const duration = audioPlayer.duration;
+
+    if (currentTime <= 5) {
+
+        isFading = true;
+
+        audioPlayer.volume = userVolume * (currentTime / 5);
+
+        isFading = false;
+
+        return;
+    }
+
+    if (duration - currentTime <= 5 && duration - currentTime > 0) {
+
+        isFading = true;
+
+        audioPlayer.volume =
+            userVolume * ((duration - currentTime) / 5);
+
+        isFading = false;
+
+        return;
+    }
+
+    isFading = true;
+
+    audioPlayer.volume = userVolume;
+
+    isFading = false;
+
+});
 
 nextButton.addEventListener('click', () => {
 
@@ -172,7 +217,6 @@ nextButton.addEventListener('click', () => {
 
 });
 
-
 previousButton.addEventListener('click', () => {
 
     let previousIndex = currentSongIndex - 1;
@@ -184,7 +228,6 @@ previousButton.addEventListener('click', () => {
     playSong(previousIndex);
 
 });
-
 
 audioPlayer.addEventListener('ended', () => {
 

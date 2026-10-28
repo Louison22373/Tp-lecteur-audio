@@ -66,7 +66,7 @@ $songs = $request->fetchAll(PDO::FETCH_ASSOC);
                 <audio id="audio-player" controls>
                     Votre navigateur ne supporte pas l'élément audio.
                 </audio>
-                <div class="player-buttons">
+
 
     <div class="player-buttons">
 
