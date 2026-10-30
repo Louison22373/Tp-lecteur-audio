@@ -120,9 +120,9 @@ randomButton.addEventListener('click', () => {
     randomMode = !randomMode;
 
     if (randomMode) {
-        randomButton.textContent = '⮔ ON';
+        randomButton.textContent = '⇆ ON';
     } else {
-        randomButton.textContent = '⮔';
+        randomButton.textContent = '⇆';
     }
 
 });

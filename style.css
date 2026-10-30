@@ -185,3 +185,224 @@ body {
     }
 
 }
+
+
+.player-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.player-buttons button {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    border-radius: 50%;
+    background: #fdfdfd;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.player-buttons button img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    transition: transform 0.25s ease;
+}
+
+.player-buttons button:hover {
+    background: #fdfdfd;
+    border-color: #777;
+    transform: translateY(-3px);
+}
+
+.player-buttons button:hover img {
+    transform: scale(1.15);
+}
+
+.player-buttons button:active {
+    transform: scale(0.92);
+}
+
+.player-buttons button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+}
+
+#next-button,
+#previous-button {
+    width: 52px;
+    height: 52px;
+}
+
+#random-button,
+#repeat-button,
+#fade-button {
+    width: 42px;
+    height: 42px;
+    background: #fdfdfd;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+.app {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.player {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cover {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.song-list {
+    width: 100%;
+}
+
+.song {
+    min-width: 0;
+}
+
+.song-details {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.player-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.player-buttons button {
+    flex-shrink: 0;
+}
+
+.comments {
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .app {
+        padding: 20px;
+    }
+
+    .player {
+        max-width: 100%;
+    }
+
+    .cover {
+        max-width: 280px;
+    }
+
+    .player-buttons {
+        gap: 10px;
+    }
+
+    .player-buttons button {
+        width: 44px;
+        height: 44px;
+    }
+
+    .player-buttons button img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .song {
+        gap: 10px;
+    }
+
+    .comments {
+        padding: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .app {
+        padding: 12px;
+    }
+
+    .cover {
+        max-width: 220px;
+    }
+
+    .song-info h1 {
+        font-size: 22px;
+    }
+
+    .song-info p {
+        font-size: 14px;
+    }
+
+    .player-buttons {
+        gap: 8px;
+    }
+
+    .player-buttons button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .player-buttons button img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .song-cover {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .song-details h3 {
+        font-size: 14px;
+    }
+
+    .song-details p {
+        font-size: 12px;
+    }
+
+    .comments {
+        padding: 14px;
+    }
+
+    #comment-form button {
+        width: 100%;
+    }
+}
